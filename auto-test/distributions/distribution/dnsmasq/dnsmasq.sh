@@ -20,6 +20,7 @@ case $distro in
         print_info $? install-pip
         ;;
     "ubuntu")
+		systemctl stop systemd-resolved
         #apt-get install dnsmasq -y
         #apt-get install bind9 -y
         pkgs="dnsmasq bind9"
@@ -27,7 +28,7 @@ case $distro in
         print_info $? install-dnsmasq
         ;;
 esac
-systemctl stop systemd-resolved
+
 DNSMASQ_CONF=/etc/dnsmasq.conf
 cp /etc/dnsmasq.conf /etc/dnsmasq.conf_bak
 sed -i 's/#resolv-file=/resolv-file=\/etc\/resolv.dnsmasq.conf/g' $DNSMASQ_CONF
